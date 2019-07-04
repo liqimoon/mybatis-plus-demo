@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liqimoon.mybatisplusdemo.mapper.SysUserMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.liqimoon.mybatisplusdemo.model.database.SysUser" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="BIGINT"/>
+		<result column="username" property="username" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="CHAR"/>
+		<result column="state" property="state" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
+	</resultMap>
+
+    <sql id="Base_Column_List">
+        <trim suffixOverrides=",">
+            id,
+            username,
+            password,
+            state,
+            create_time,
+            description,
+        </trim>
+    </sql>
+
+    <sql id="Base_Column_List_T">
+        <trim suffixOverrides=",">
+            t.id,
+            t.username,
+            t.password,
+            t.state,
+            t.create_time,
+            t.description,
+        </trim>
+    </sql>
+
+    <select id="getByUsername" resultType="com.liqimoon.mybatisplusdemo.model.database.SysUser">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tsys_user
+        <where>
+            username LIKE CONCAT('%','${username}','%' )
+        </where>
+    </select>
+
+</mapper>
